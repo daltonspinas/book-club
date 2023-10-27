@@ -1,0 +1,10 @@
+C:\Users\Dalton\source\repos\book-club\Database\bin\Debug\Database.dacpac
+C:\Users\Dalton\source\repos\book-club\Database\bin\Debug\Database.dll
+C:\Users\Dalton\source\repos\book-club\Database\bin\Debug\Database.pdb
+C:\Users\Dalton\source\repos\book-club\Database\obj\Debug\Database.sqlproj.AssemblyReference.cache
+C:\Users\Dalton\source\repos\book-club\Database\obj\Debug\Model.xml
+C:\Users\Dalton\source\repos\book-club\Database\obj\Debug\refactor.xml
+C:\Users\Dalton\source\repos\book-club\Database\obj\Debug\postdeploy.sql
+C:\Users\Dalton\source\repos\book-club\Database\obj\Debug\predeploy.sql
+C:\Users\Dalton\source\repos\book-club\Database\obj\Debug\Database.dll
+C:\Users\Dalton\source\repos\book-club\Database\obj\Debug\Database.pdb
