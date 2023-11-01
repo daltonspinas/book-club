@@ -3,17 +3,24 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using book_club.Database.Entity;
 
+
 namespace book_club.Database.Context;
 
 public partial class BookClubContext : DbContext
 {
-    public BookClubContext()
+    private readonly IConfiguration _configuration;
+    public BookClubContext(IConfiguration configuration)
     {
+        _configuration = configuration;
     }
 
     public BookClubContext(DbContextOptions<BookClubContext> options)
         : base(options)
     {
+        using(var context = new BookClubContext(options))
+        {
+            context.Database.EnsureCreated();
+        }
     }
 
     public virtual DbSet<BookClub> BookClubs { get; set; }
@@ -27,8 +34,7 @@ public partial class BookClubContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=45062\\SQLEXPRESS;Initial Catalog=book_club;Integrated Security=SSPI;Encrypt=false");
+        => optionsBuilder.UseSqlServer(_configuration.GetConnectionString("book_club"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -134,12 +140,9 @@ public partial class BookClubContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.UserNavigation).WithOne(p => p.User)
-                .HasPrincipalKey<BookClub>(p => p.OwnerId)
-                .HasForeignKey<User>(d => d.UserId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_User_BookClub");
         });
+
+        modelBuilder.Seed();
 
         OnModelCreatingPartial(modelBuilder);
     }

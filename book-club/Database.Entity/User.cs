@@ -18,6 +18,4 @@ public partial class User
     public virtual ICollection<ClubMeeting> ClubMeetings { get; set; } = new List<ClubMeeting>();
 
     public virtual ICollection<Rsvp> Rsvps { get; set; } = new List<Rsvp>();
-
-    public virtual BookClub UserNavigation { get; set; } = null!;
 }
