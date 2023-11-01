@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using book_club.Database.Context;
 
@@ -16,30 +15,26 @@ namespace book_club.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.13")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.13");
 
             modelBuilder.Entity("book_club.Database.Entity.BookClub", b =>
                 {
                     b.Property<int>("ClubId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("ClubID");
 
                     b.Property<string>("ClubName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("OwnerId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("OwnerID");
 
                     b.Property<int?>("UserId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("ClubId");
 
@@ -62,15 +57,15 @@ namespace book_club.Migrations
             modelBuilder.Entity("book_club.Database.Entity.BookClubMember", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("ID");
 
                     b.Property<int>("ClubId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("ClubID");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("UserID");
 
                     b.HasKey("Id");
@@ -111,28 +106,28 @@ namespace book_club.Migrations
             modelBuilder.Entity("book_club.Database.Entity.ClubMeeting", b =>
                 {
                     b.Property<int>("MeetingId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("MeetingID");
 
                     b.Property<string>("BookId")
                         .IsUnicode(false)
-                        .HasColumnType("varchar(max)")
+                        .HasColumnType("TEXT")
                         .HasColumnName("BookID");
 
                     b.Property<int>("ClubId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("ClubID");
 
                     b.Property<DateTime?>("Date")
                         .HasColumnType("date");
 
                     b.Property<int?>("HostId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("HostID");
 
                     b.Property<string>("Location")
                         .IsUnicode(false)
-                        .HasColumnType("varchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("MeetingId");
 
@@ -147,7 +142,7 @@ namespace book_club.Migrations
                         {
                             MeetingId = 1,
                             ClubId = 1,
-                            Date = new DateTime(2023, 11, 2, 16, 31, 55, 203, DateTimeKind.Local).AddTicks(2277),
+                            Date = new DateTime(2023, 11, 6, 14, 10, 9, 738, DateTimeKind.Local).AddTicks(7239),
                             HostId = 3,
                             Location = "1234 Address, City, State, Zip"
                         });
@@ -156,19 +151,19 @@ namespace book_club.Migrations
             modelBuilder.Entity("book_club.Database.Entity.Rsvp", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("ID");
 
                     b.Property<int>("MeetingId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("MeetingID");
 
                     b.Property<bool?>("Rsvpstatus")
-                        .HasColumnType("bit")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("RSVPStatus");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("UserID");
 
                     b.HasKey("Id");
@@ -183,26 +178,26 @@ namespace book_club.Migrations
             modelBuilder.Entity("book_club.Database.Entity.User", b =>
                 {
                     b.Property<int>("UserId")
-                        .HasColumnType("int")
+                        .HasColumnType("INTEGER")
                         .HasColumnName("UserID");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("UserId");
 

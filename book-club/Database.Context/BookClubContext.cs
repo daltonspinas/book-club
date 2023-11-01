@@ -34,7 +34,7 @@ public partial class BookClubContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(_configuration.GetConnectionString("book_club"));
+        => optionsBuilder.UseSqlite(_configuration.GetConnectionString("book_club_sqlite"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -17,10 +17,10 @@ namespace book_club.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    UserID = table.Column<int>(type: "int", nullable: false),
-                    Email = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
-                    Username = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
-                    Password = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false)
+                    UserID = table.Column<int>(type: "INTEGER", nullable: false),
+                    Email = table.Column<string>(type: "TEXT", unicode: false, maxLength: 50, nullable: false),
+                    Username = table.Column<string>(type: "TEXT", unicode: false, maxLength: 50, nullable: false),
+                    Password = table.Column<string>(type: "TEXT", unicode: false, maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -31,10 +31,10 @@ namespace book_club.Migrations
                 name: "BookClub",
                 columns: table => new
                 {
-                    ClubID = table.Column<int>(type: "int", nullable: false),
-                    ClubName = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
-                    OwnerID = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: true)
+                    ClubID = table.Column<int>(type: "INTEGER", nullable: false),
+                    ClubName = table.Column<string>(type: "TEXT", unicode: false, maxLength: 50, nullable: false),
+                    OwnerID = table.Column<int>(type: "INTEGER", nullable: false),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -50,9 +50,9 @@ namespace book_club.Migrations
                 name: "BookClubMembers",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false),
-                    ClubID = table.Column<int>(type: "int", nullable: false),
-                    UserID = table.Column<int>(type: "int", nullable: false)
+                    ID = table.Column<int>(type: "INTEGER", nullable: false),
+                    ClubID = table.Column<int>(type: "INTEGER", nullable: false),
+                    UserID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -73,12 +73,12 @@ namespace book_club.Migrations
                 name: "ClubMeeting",
                 columns: table => new
                 {
-                    MeetingID = table.Column<int>(type: "int", nullable: false),
-                    ClubID = table.Column<int>(type: "int", nullable: false),
-                    Location = table.Column<string>(type: "varchar(max)", unicode: false, nullable: true),
+                    MeetingID = table.Column<int>(type: "INTEGER", nullable: false),
+                    ClubID = table.Column<int>(type: "INTEGER", nullable: false),
+                    Location = table.Column<string>(type: "TEXT", unicode: false, nullable: true),
                     Date = table.Column<DateTime>(type: "date", nullable: true),
-                    BookID = table.Column<string>(type: "varchar(max)", unicode: false, nullable: true),
-                    HostID = table.Column<int>(type: "int", nullable: true)
+                    BookID = table.Column<string>(type: "TEXT", unicode: false, nullable: true),
+                    HostID = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -99,10 +99,10 @@ namespace book_club.Migrations
                 name: "RSVP",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false),
-                    MeetingID = table.Column<int>(type: "int", nullable: false),
-                    UserID = table.Column<int>(type: "int", nullable: false),
-                    RSVPStatus = table.Column<bool>(type: "bit", nullable: true)
+                    ID = table.Column<int>(type: "INTEGER", nullable: false),
+                    MeetingID = table.Column<int>(type: "INTEGER", nullable: false),
+                    UserID = table.Column<int>(type: "INTEGER", nullable: false),
+                    RSVPStatus = table.Column<bool>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -149,7 +149,7 @@ namespace book_club.Migrations
             migrationBuilder.InsertData(
                 table: "ClubMeeting",
                 columns: new[] { "MeetingID", "BookID", "ClubID", "Date", "HostID", "Location" },
-                values: new object[] { 1, null, 1, new DateTime(2023, 11, 2, 16, 31, 55, 203, DateTimeKind.Local).AddTicks(2277), 3, "1234 Address, City, State, Zip" });
+                values: new object[] { 1, null, 1, new DateTime(2023, 11, 6, 14, 10, 9, 738, DateTimeKind.Local).AddTicks(7239), 3, "1234 Address, City, State, Zip" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_BookClub",
