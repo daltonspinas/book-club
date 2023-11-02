@@ -9,18 +9,20 @@ namespace book_club.Database.Context;
 public partial class BookClubContext : DbContext
 {
     private readonly IConfiguration _configuration;
-    public BookClubContext(IConfiguration configuration)
-    {
-        _configuration = configuration;
-    }
+    //public BookClubContext(IConfiguration configuration)
+    //{
+    //    _configuration = configuration;
+    //}
 
     public BookClubContext(DbContextOptions<BookClubContext> options)
         : base(options)
     {
-        using(var context = new BookClubContext(options))
-        {
-            context.Database.EnsureCreated();
-        }
+        Database.EnsureCreated();
+        //using (var context = new BookClubContext(options))
+        //{
+        //    context.Database.EnsureCreated();
+
+        //}
     }
 
     public virtual DbSet<BookClub> BookClubs { get; set; }
