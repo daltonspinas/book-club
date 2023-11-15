@@ -2,5 +2,17 @@ import React, { createContext } from 'react';
 
 export const AppContext = createContext({
     pageTitle: "",
-    setPageTitle: () => {} 
+    setPageTitle: () => {},
+    bookTitle: "",
+    setBookTitle: () => {},
+    bookAuthor: "",
+    setBookAuthor: () => {},
+    bookImage: "",
+    setBookImage: () => {},
+    meetingDate: "",
+    setMeetingDate: () => {},
+    meetingHost: "",
+    setMeetingHost: () => {},
+    meetingAddress: "",
+    setMeetingAddress: () => {}
 });
