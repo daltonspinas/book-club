@@ -30,6 +30,9 @@ export function NavMenu(props) {
                <NavItem>
                  <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
                </NavItem>
+               <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/login-signup">Login/SignUp</NavLink>
+               </NavItem>
              </ul>
            </Collapse>
          </Navbar>
