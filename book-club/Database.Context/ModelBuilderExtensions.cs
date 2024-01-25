@@ -8,10 +8,10 @@ namespace book_club.Database.Context
         public static void Seed(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasData(
-                new User { UserId = 1, Username = "Demo Owner 1", Email = "test@gmail.com", Password = "password" },
-                new User { UserId = 2, Username = "Demo Member 1", Email = "test@gmail.com", Password = "password" },
-                new User { UserId = 3, Username = "Demo Member 2", Email = "test@gmail.com", Password = "password" },
-                new User { UserId = 4, Username = "Demo Member 3", Email = "test@gmail.com", Password = "password" }
+                new User { Id = 1, UserName = "Demo Owner 1", Email = "test@gmail.com", Password = "password" },
+                new User { Id = 2, UserName = "Demo Member 1", Email = "test@gmail.com", Password = "password" },
+                new User { Id = 3, UserName = "Demo Member 2", Email = "test@gmail.com", Password = "password" },
+                new User { Id = 4, UserName = "Demo Member 3", Email = "test@gmail.com", Password = "password" }
             );
 
             modelBuilder.Entity<BookClub>().HasData(

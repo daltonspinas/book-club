@@ -25,14 +25,36 @@ export function LoginSignup() {
         setCreateData((previousData) => ({...previousData, [name]: value}))
     }
 
-    const handleCreateSubmit = (event) => {
+    const handleCreateSubmit = async (event) => {
         event.preventDefault()
         //check for matching passwords
         if (event.target.password1.value !== event.target.password2.value) {
             alert("Passwords do not match, please try again")
         }
-        //TODO: replace this with something useful
         console.log(createData)
+
+        // TODO: Upgrade to Typescript
+        //TODO: create React context to handle API calls
+
+        // TODO: Implement automapper for DTOs
+        const userDTO = {
+            userName: createData.userName,
+            email: createData.email,
+            password: createData.password1
+        }
+
+        const response = await fetch('api/user/CreateUser', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+           // body: JSON.stringify(userDTO)
+            body: userDTO
+        })
+
+        console.log({response})
+        const data = await response.json();
+        console.log(data)
     }
 
     return(

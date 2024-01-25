@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.SpaServices.Extensions;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.AspNetCore.Identity;
+using book_club.Database.Entity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,9 +19,18 @@ builder.Services.AddControllersWithViews();
 var connection = new SqliteConnection(builder.Configuration.GetConnectionString("book_club_sqlite"));
 connection.Open();
 connection.EnableExtensions(true);
+
 builder.Services.AddDbContext<BookClubContext>(options => options.UseSqlite(connection));
 
+builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<BookClubContext>();
+
+
+
+
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

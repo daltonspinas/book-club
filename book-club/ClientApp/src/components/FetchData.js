@@ -24,9 +24,9 @@ export class FetchData extends Component {
         </thead>
         <tbody>
           {users.map(user =>
-            <tr key={user.userId}>
+            <tr key={user.id}>
               <td>{user.email}</td>
-              <td>{user.username}</td>
+              <td>{user.userName}</td>
               <td>{user.password}</td>
             </tr>
           )}
@@ -42,7 +42,7 @@ export class FetchData extends Component {
 
     return (
       <div>
-        <h1 id="tabelLabel" >Weather forecast</h1>
+        <h1 id="tabelLabel" >Users</h1>
         <p>This component demonstrates fetching data from the server.</p>
         {contents}
       </div>

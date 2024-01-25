@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using book_club.Database.Context;
 
@@ -10,9 +11,11 @@ using book_club.Database.Context;
 namespace book_club.Migrations
 {
     [DbContext(typeof(BookClubContext))]
-    partial class BookClubContextModelSnapshot : ModelSnapshot
+    [Migration("20240118054340_configure-usermanager")]
+    partial class configureusermanager
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.13");
