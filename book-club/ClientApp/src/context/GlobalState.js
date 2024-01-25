@@ -16,3 +16,8 @@ export const AppContext = createContext({
     meetingAddress: "",
     setMeetingAddress: () => {}
 });
+
+export const ClubsContext = createContext({
+    clubsArray: [],
+    setClubsArray: () => { }
+})

@@ -9,8 +9,8 @@ export class Layout extends Component {
 
     render() {
 
-        //todo:pull in data for clubs attatched to user and pass along to the ClubSidebar component
-        const testClubArr = [{ name: "test" }, { name: "testtwo" }]
+        //todo:subscribe to the ClubsContext once functionality is in place (user logs in -> updates subscribed book clubs)
+        const testClubArr = [{ name: "testClubOne" }, { name: "testClubTwo" }]
 
         const wrapper = {
             display: "flex"
