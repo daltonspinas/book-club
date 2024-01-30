@@ -27,34 +27,31 @@ export function LoginSignup() {
 
     const handleCreateSubmit = async (event) => {
         event.preventDefault()
-        //check for matching passwords
+        // check for matching passwords
         if (event.target.password1.value !== event.target.password2.value) {
             alert("Passwords do not match, please try again")
         }
-        console.log(createData)
 
         // TODO: Upgrade to Typescript
-        //TODO: create React context to handle API calls
+        // TODO: create React context to handle API calls
+        // TODO: Implement something to autogenerate DTOs on the frontend based on the backend Models
 
-        // TODO: Implement automapper for DTOs
         const userDTO = {
-            userName: createData.userName,
-            email: createData.email,
-            password: createData.password1
+            UserName: createData.userName,
+            Email: createData.email,
+            Password: createData.password1
         }
 
-        const response = await fetch('api/user/CreateUser', {
+        await fetch(`api/user/create-user`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=UTF-8'
             },
-           // body: JSON.stringify(userDTO)
-            body: userDTO
+            body: JSON.stringify(userDTO)
         })
-
-        console.log({response})
-        const data = await response.json();
-        console.log(data)
+            .then((response) => response.json())
+            .then((data => console.log(data)))
+            .catch(err => alert(JSON.stringify(err)))
     }
 
     return(

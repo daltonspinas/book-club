@@ -1,7 +1,10 @@
-﻿using book_club.Database.Context;
+﻿using AutoMapper;
+using book_club.Database.Context;
 using book_club.Database.Entity;
+using book_club.DTOs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace book_club.Controllers
 {
@@ -17,16 +20,21 @@ namespace book_club.Controllers
 
         private readonly ILogger<UserController> _logger;
 
+        private readonly IMapper _mapper;
+
         public UserController(
             ILogger<UserController> logger,
             BookClubContext context,
-            UserManager<User> userManager)
+            UserManager<User> userManager,
+            IMapper mapper)
         {
             _logger = logger;
             _context = context;
             _userManager = userManager;
-        }
+            _mapper = mapper;
+    }
 
+        [Route("get-all")]
         [HttpGet]
         public IEnumerable<User> Get()
         {
@@ -36,14 +44,29 @@ namespace book_club.Controllers
             .ToArray();
         }
 
-        [HttpGet]
-        public Task<User> GetSingleUser ([FromBody] User user)
+        [Route("create-user")]
+        [HttpPost]
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO userInfo)
         {
-          //  _userManager.CreateAsync(user, user.Password);
 
-            var createdUser =_userManager.FindByEmailAsync(user.Email);
+            var result = await _userManager.CreateAsync(_mapper.Map<User>(userInfo), userInfo.Password);
 
-            return createdUser;
+            if(result.Succeeded)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                string errors = "";
+
+                foreach (var error in result.Errors)
+                {
+                    errors += error.Description;
+                }
+
+                return StatusCode(500, errors);
+            }
         }
+
     }
 }

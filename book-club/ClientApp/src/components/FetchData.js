@@ -50,7 +50,7 @@ export class FetchData extends Component {
   }
 
     async populateUserData() {
-    const response = await fetch('api/user');
+    const response = await fetch('api/user/get-all');
     const data = await response.json();
     this.setState({ users: data, loading: false });
   }
