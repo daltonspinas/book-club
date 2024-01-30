@@ -8,7 +8,12 @@ module.exports = {
     "./src/components/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      width: {
+        'sidebarWidth': '15vw',
+        'mainWidth': '70vw'
+      }
+    },
   },
   variants: {},
   plugins: [],
