@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { getBookByID } from '../apis/BooksApi';
 
 export function ClubSidebar({ clubsArray = [] }) {
     return (
