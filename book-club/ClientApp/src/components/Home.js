@@ -1,6 +1,7 @@
 import React, {useContext, useState, useEffect} from 'react';
 import { AppContext } from '../context/GlobalState';
 import axios from "axios";
+import useGetBook from '../APIs/BooksAPI';
 
 export function Home() {
     const { bookImage, bookTitle, setBookTitle, bookAuthor, setBookAuthor, meetingDate, meetingHost, meetingAddress } = useContext(AppContext)
@@ -10,9 +11,13 @@ export function Home() {
         baseURL: "https://www.googleapis.com/books/v1/volumes/"
     })
 
-    const practiceID = "OXzLsgEACAAJ?key=AIzaSyB8Qt63pYxZHRNxlDJQQUYQLS4Zuqcw5ZU"
 
-    React.useEffect(() => {
+    let bookData = useGetBook()
+        setBookTitle(bookData.title)
+        setBookAuthor(bookData.author)
+
+
+/*    React.useEffect(() => {
         client.get(practiceID).then((response) => {
             let resultObj = {
                 title: response.data.volumeInfo.title,
@@ -22,11 +27,11 @@ export function Home() {
             setBookTitle(resultObj.title);
             setBookAuthor(resultObj.author);
         })
-    }, []);
+    }, []);*/
 
     return (
         <div className='bg-indigo-500 w-mainWidth h-screen grid items-center justify-center max-h-screen gap-2'>
-      <img className='justify-self-center' src={bookImage} alt="bookImage"></img>
+            <img className='justify-self-center' src={bookImage} alt="bookImage"></img>
       <h1 className='justify-self-center text-4xl'>{bookTitle}</h1>
       <h2 className='justify-self-center text-3xl'>{bookAuthor}</h2>
       <h3 className='justify-self-center text-xl'>Next Meeting: {meetingDate}</h3>
