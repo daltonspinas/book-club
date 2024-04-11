@@ -137,7 +137,7 @@ public partial class BookClubContext : IdentityDbContext<User, IdentityRole<int>
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.Password)
+            entity.Property(e => e.PasswordHash)
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.UserName)

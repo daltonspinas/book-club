@@ -1,17 +1,28 @@
 ﻿using book_club.Database.Entity;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System.Data;
+using System.Runtime.CompilerServices;
 
 namespace book_club.Database.Context
 {
     public static class ModelBuilderExtensions
     {
-        public static void Seed(this ModelBuilder modelBuilder)
+        public static async Task Seed(this ModelBuilder modelBuilder)
         {
+
+            var owner = CreateSeedUser("Demo Owner 1", "test@gmail.com", "Password123!", 1);
+            var member1 = CreateSeedUser("Demo Member 1", "test1@gmail.com", "Password123!", 2);
+            var member2 = CreateSeedUser("Demo Member 2", "test2@gmail.com", "Password123!", 3);
+            var member3 = CreateSeedUser("Demo Member 3", "test3@gmail.com", "Password123!", 4);
+
             modelBuilder.Entity<User>().HasData(
-                new User { Id = 1, UserName = "Demo Owner 1", Email = "test@gmail.com", Password = "password" },
-                new User { Id = 2, UserName = "Demo Member 1", Email = "test@gmail.com", Password = "password" },
-                new User { Id = 3, UserName = "Demo Member 2", Email = "test@gmail.com", Password = "password" },
-                new User { Id = 4, UserName = "Demo Member 3", Email = "test@gmail.com", Password = "password" }
+                owner,
+                member1,
+                member2,
+                member3
             );
 
             modelBuilder.Entity<BookClub>().HasData(
@@ -28,6 +39,14 @@ namespace book_club.Database.Context
             modelBuilder.Entity<ClubMeeting>().HasData(
                 new ClubMeeting { MeetingId = 1, ClubId = 1, HostId = 3, Location = "1234 Address, City, State, Zip" , Date = DateTime.Now.AddDays(5)}
             );
+        }
+
+        private static User CreateSeedUser(string username, string email, string password, int id)
+        {
+            var passHasher = new PasswordHasher<User>();
+            var user = new User { Id = id, UserName = username, NormalizedUserName = username.ToUpper(), Email = email, NormalizedEmail = email.ToUpper() };
+            user.PasswordHash = passHasher.HashPassword(user, password);
+            return user;
         }
     }
 }

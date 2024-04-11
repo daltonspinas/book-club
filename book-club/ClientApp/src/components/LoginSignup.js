@@ -11,10 +11,27 @@ export function LoginSignup() {
         setLoginData((previousData) => ({...previousData, [name]: value}))
     }
 
-    const handleLoginSubmit = (event) =>{
+    const handleLoginSubmit = async (event) =>{
         event.preventDefault()
-        //TODO: replace this log with something useful
-        console.log(loginData)
+        const loginDTO = {
+            Email: loginData.email,
+            Password: loginData.password
+        }
+
+        await fetch(`api/user/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            body: JSON.stringify(loginDTO)
+        })
+            .then((response) => {
+                // Need response.text or response.json based on return type of API call, should handle this more cleanly
+                // TODO: Should handle all parsing/error logging into extension
+                return response.text()
+            })
+            .then((data => console.log(data)))
+            .catch(err => console.log(err))
     }
 
     //state hooks for create acct path
@@ -49,7 +66,10 @@ export function LoginSignup() {
             },
             body: JSON.stringify(userDTO)
         })
-            .then((response) => response.json())
+            .then((response) => {
+                console.log(response)
+                return response.json()
+            })
             .then((data => console.log(data)))
             .catch(err => alert(JSON.stringify(err)))
     }
