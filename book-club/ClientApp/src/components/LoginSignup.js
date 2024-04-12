@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { userAPI } from "../API/Controllers/User";
 
 export function LoginSignup() {
 
@@ -18,20 +19,7 @@ export function LoginSignup() {
             Password: loginData.password
         }
 
-        await fetch(`api/user/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8'
-            },
-            body: JSON.stringify(loginDTO)
-        })
-            .then((response) => {
-                // Need response.text or response.json based on return type of API call, should handle this more cleanly
-                // TODO: Should handle all parsing/error logging into extension
-                return response.text()
-            })
-            .then((data => console.log(data)))
-            .catch(err => console.log(err))
+        userAPI.login(loginDTO).then(data => console.log(data));
     }
 
     //state hooks for create acct path
@@ -50,28 +38,13 @@ export function LoginSignup() {
         }
 
         // TODO: Upgrade to Typescript
-        // TODO: create React context to handle API calls
-        // TODO: Implement something to autogenerate DTOs on the frontend based on the backend Models
-
         const userDTO = {
             UserName: createData.userName,
             Email: createData.email,
             Password: createData.password1
         }
 
-        await fetch(`api/user/create-user`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8'
-            },
-            body: JSON.stringify(userDTO)
-        })
-            .then((response) => {
-                console.log(response)
-                return response.json()
-            })
-            .then((data => console.log(data)))
-            .catch(err => alert(JSON.stringify(err)))
+        userAPI.signUp(userDTO).then(data => console.log(data))
     }
 
     return(

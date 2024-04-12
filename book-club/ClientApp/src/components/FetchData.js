@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { userAPI } from '../API/Controllers/User';
 
 export class FetchData extends Component {
   static displayName = FetchData.name;
@@ -49,9 +50,7 @@ export class FetchData extends Component {
     );
   }
 
-    async populateUserData() {
-    const response = await fetch('api/user/get-all');
-    const data = await response.json();
-    this.setState({ users: data, loading: false });
+    populateUserData() {
+    userAPI.getAll().then(data => this.setState({users: data, loading: false}))
   }
 }
