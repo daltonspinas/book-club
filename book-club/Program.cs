@@ -50,6 +50,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
      };
  });
 
+builder.Services.AddAuthorization(options => { });
+
 builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
@@ -67,6 +69,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 app.UseRouting();
+app.UseAuthorization();
+
 
 
 app.MapControllerRoute(

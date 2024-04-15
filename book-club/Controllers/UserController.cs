@@ -2,6 +2,7 @@
 using book_club.Database.Context;
 using book_club.Database.Entity;
 using book_club.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -11,6 +12,7 @@ using System.Text.Json;
 
 namespace book_club.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
 
@@ -50,6 +52,7 @@ namespace book_club.Controllers
             .ToArray();
         }
 
+        [AllowAnonymous]
         [Route("create-user")]
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] CreateUserDTO userInfo)
@@ -74,6 +77,7 @@ namespace book_club.Controllers
             }
         }
 
+        [AllowAnonymous]
         [Route("login")]
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] LoginDTO loginInfo)
@@ -102,6 +106,15 @@ namespace book_club.Controllers
             {
                 return StatusCode(401, "Unauthorized Login");
             }
+        }
+
+        [Route("logout")]
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return Ok();
+
         }
 
     }

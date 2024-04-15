@@ -1,31 +1,31 @@
-import axios from "axios"
+import axios from "axios";
+import { useEffect } from "react";
 
 export const api = axios.create({
-    baseURL: '/api',
-})
+  baseURL: "/api",
+});
 
 // defining a custom error handler for all APIs
 const errorHandler = (error) => {
-    const statusCode = error.response?.status
+  const statusCode = error.response?.status;
+  console.error(statusCode, error);
 
-    if (error.code === "ERR_CANCELED") {
-        console.error({
-            placement: "bottomRight",
-            description: "API canceled!",
-        })
-        return Promise.resolve()
-    }
+  return Promise.reject(error);
+};
 
-    // logging only errors that are not 401
-    if (statusCode && statusCode !== 401) {
-        console.error(error)
-    }
+export default function AxiosConfig() {
 
-    return Promise.reject(error)
+  // wrap in useEffect so we don't register a new interceptor every time
+  useEffect(() => {
+    api.interceptors.response.use(undefined, (error) => {
+      return errorHandler(error);
+    });
+
+    api.interceptors.request.use((config) => {
+		// attach the jwt to outbound api calls
+      const accessToken = localStorage.getItem('accessToken')
+      config.headers.Authorization = "Bearer " + accessToken;
+      return config;
+    });
+  }, []);
 }
-
-// registering the custom error handler to the
-// "api" axios instance
-api.interceptors.response.use(undefined, (error) => {
-    return errorHandler(error)
-})

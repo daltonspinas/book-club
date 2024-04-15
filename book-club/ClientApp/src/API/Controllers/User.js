@@ -21,6 +21,14 @@ export const userAPI = {
         return response.data
     },
 
+    logout: async function() {
+        const response = await api.request({
+            url: `${controllerBase}/logout`,
+            method: 'POST'
+        })
+        return response.data
+    }, 
+
     signUp: async function(signUpInfo) {
         const response = await api.request({
             url: `${controllerBase}/create-user`,

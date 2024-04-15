@@ -51,6 +51,8 @@ export class FetchData extends Component {
   }
 
     populateUserData() {
-    userAPI.getAll().then(data => this.setState({users: data, loading: false}))
+    userAPI.getAll().then(data => {
+      this.setState({users: data, loading: false})
+    })
   }
 }
