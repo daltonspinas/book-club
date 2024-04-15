@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { userAPI } from '../API/Controllers/User';
 
 export class FetchData extends Component {
   static displayName = FetchData.name;
@@ -24,9 +25,9 @@ export class FetchData extends Component {
         </thead>
         <tbody>
           {users.map(user =>
-            <tr key={user.userId}>
+            <tr key={user.id}>
               <td>{user.email}</td>
-              <td>{user.username}</td>
+              <td>{user.userName}</td>
               <td>{user.password}</td>
             </tr>
           )}
@@ -42,16 +43,16 @@ export class FetchData extends Component {
 
     return (
       <div>
-        <h1 id="tabelLabel" >Weather forecast</h1>
+        <h1 id="tabelLabel" >Users</h1>
         <p>This component demonstrates fetching data from the server.</p>
         {contents}
       </div>
     );
   }
 
-    async populateUserData() {
-    const response = await fetch('api/user');
-    const data = await response.json();
-    this.setState({ users: data, loading: false });
+    populateUserData() {
+    userAPI.getAll().then(data => {
+      this.setState({users: data, loading: false})
+    })
   }
 }

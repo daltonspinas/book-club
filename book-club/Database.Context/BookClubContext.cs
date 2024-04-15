@@ -1,12 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using book_club.Database.Entity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace book_club.Database.Context;
 
-public partial class BookClubContext : DbContext
+public partial class BookClubContext : IdentityDbContext<User, IdentityRole<int>, int>
 {
     private readonly IConfiguration _configuration;
     //public BookClubContext(IConfiguration configuration)
@@ -129,24 +131,26 @@ public partial class BookClubContext : DbContext
         {
             entity.ToTable("User");
 
-            entity.Property(e => e.UserId)
+            entity.Property(e => e.Id)
                 .ValueGeneratedNever()
                 .HasColumnName("UserID");
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.Password)
+            entity.Property(e => e.PasswordHash)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.Username)
+            entity.Property(e => e.UserName)
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
         });
 
+        modelBuilder.Entity<IdentityUser>().ToTable("User").Property(p => p.Id).HasColumnName("UserID");
+
         modelBuilder.Seed();
 
-        OnModelCreatingPartial(modelBuilder);
+        base.OnModelCreating(modelBuilder);
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

@@ -2,7 +2,7 @@ import React, { Component, useContext, useState } from 'react';
 import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
-import { AppContext } from '../context/GlobalState';
+import { AppContext } from '../context/GlobalContext';
 
 
 export function NavMenu(props) {
