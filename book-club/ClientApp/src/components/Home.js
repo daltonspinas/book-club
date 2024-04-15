@@ -1,33 +1,14 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext} from 'react';
 import { AppContext } from '../context/GlobalState';
-import axios from "axios";
 import useGetBook from '../APIs/BooksAPI';
 
 export function Home() {
-    const { bookImage, bookTitle, setBookTitle, bookAuthor, setBookAuthor, meetingDate, meetingHost, meetingAddress } = useContext(AppContext)
+    const { bookImage, bookTitle, bookAuthor, meetingDate, meetingHost, meetingAddress } = useContext(AppContext)
 
-    //Books API
-    const client = axios.create({
-        baseURL: "https://www.googleapis.com/books/v1/volumes/"
-    })
-
-
-    let bookData = useGetBook()
-        setBookTitle(bookData.title)
-        setBookAuthor(bookData.author)
-
-
-/*    React.useEffect(() => {
-        client.get(practiceID).then((response) => {
-            let resultObj = {
-                title: response.data.volumeInfo.title,
-                //authors comes back as an array, may want to modify this later to handle multiple authors. For now assume first result is main/only author
-                author: response.data.volumeInfo.authors[0],
-            }
-            setBookTitle(resultObj.title);
-            setBookAuthor(resultObj.author);
-        })
-    }, []);*/
+    //call books API, update context
+    //temp ID for Dune used, replace with DB entry and context later
+    const bookId = "OXzLsgEACAAJ?key=AIzaSyB8Qt63pYxZHRNxlDJQQUYQLS4Zuqcw5ZU"
+    useGetBook(bookId)
 
     return (
         <div className='bg-indigo-500 w-mainWidth h-screen grid items-center justify-center max-h-screen gap-2'>

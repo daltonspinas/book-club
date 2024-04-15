@@ -1,9 +1,9 @@
-import React, { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
+import { AppContext } from '../context/GlobalState';
 import axios from "axios";
 
 
 const bookApiUrl = "https://www.googleapis.com/books/v1/volumes/"
-const bookId = "OXzLsgEACAAJ?key=AIzaSyB8Qt63pYxZHRNxlDJQQUYQLS4Zuqcw5ZU"
 
 //reusable hit to any endpoint
 const useAxios = (endpoint) => {
@@ -28,26 +28,35 @@ const useAxios = (endpoint) => {
     return {data, loading, error, getData}
 }
 
-const useGetBook = () => {
+//hits the Google API to retrieve a book. Retool this when we have DB support for, just has a fixed ID for now (bookId for Dune)
+const useGetBook = (bookId) => {
     const fullUrl = bookApiUrl+bookId
+    const { setBookTitle, setBookAuthor } = useContext(AppContext)
     const { data, loading, error, getData } = useAxios(fullUrl)
 
-    if (loading) {
-        return <p>Loading...</p>
+    useEffect(() => {
+            if (loading) {
+        console.log("Loading...")
     }
+    })
 
-    if (error) {
+    useEffect(() =>{
+            if (error) {
         console.log(error.message)
-        return <p>Error!</p>
     }
+    })
 
-    getData()
-    console.log(data)
+    //make API request
+    useEffect(() => {
+        getData()
+    }, [])
 
-    return (
-        //make this update the context
-       data
-    )
+    //prevent until data returned, then update context
+    if (!loading && !error && data.volumeInfo){
+        setBookTitle(data.volumeInfo.title)
+        //authors come back in an array, snag the first result
+        setBookAuthor(data.volumeInfo.authors[0])
+    }
 }
 
     export default useGetBook
