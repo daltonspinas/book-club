@@ -44,5 +44,13 @@ export const userAPI = {
             method: 'GET',
         })
         return response.data
+    },
+
+    getAppUserInfo: async function() {
+        const response = await api.request({
+            url: `${controllerBase}/user-info`,
+            method: 'GET',
+        })
+        return response.data
     }
 }

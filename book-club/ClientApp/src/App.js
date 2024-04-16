@@ -5,15 +5,27 @@ import { Layout } from "./components/Layout";
 import "./custom.css";
 import { AppContext } from "./context/GlobalContext";
 import AxiosConfig from "./API/axiosConfig";
+import { AppUserContext } from "./context/UserContext";
+import { userAPI } from "./API/Controllers/User";
 
 export default function App() {
   const [pageTitle, setPageTitle] = useState();
-  const [bookImage, setBookImage] = useState();
-  const [bookTitle, setBookTitle] = useState();
-  const [bookAuthor, setBookAuthor] = useState();
-  const [meetingDate, setMeetingDate] = useState();
-  const [meetingHost, setMeetingHost] = useState();
-  const [meetingAddress, setMeetingAddress] = useState();
+  const [bookImage, setBookImage] = useState(
+    "https://prodimage.images-bn.com/lf?set=key%5Bresolve.pixelRatio%5D,value%5B1%5D&set=key%5Bresolve.width%5D,value%5B300%5D&set=key%5Bresolve.height%5D,value%5B10000%5D&set=key%5Bresolve.imageFit%5D,value%5Bcontainerwidth%5D&set=key%5Bresolve.allowImageUpscaling%5D,value%5B0%5D&set=key%5Bresolve.format%5D,value%5Bwebp%5D&source=url%5Bhttps://prodimage.images-bn.com/pimages/9780425266540_p0_v6_s600x595.jpg%5D&scale=options%5Blimit%5D,size%5B300x10000%5D&sink=format%5Bwebp%5D"
+  );
+  const [bookTitle, setBookTitle] = useState("Default Title");
+  const [bookAuthor, setBookAuthor] = useState("Default Author");
+  const [meetingDate, setMeetingDate] = useState(new Date().toString());
+  const [meetingHost, setMeetingHost] = useState("Default Host");
+  const [meetingAddress, setMeetingAddress] = useState(
+    "1234 Default Address, TestCity 12345"
+  );
+
+  const [pageLoading, setPageLoading] = useState(false)
+
+  const [appUser, setAppUser] = useState();
+
+  const appUserContextValue = { appUser, setAppUser };
 
   const appContextValue = {
     pageTitle,
@@ -33,15 +45,14 @@ export default function App() {
   };
 
   useEffect(() => {
-    setBookImage(
-      "https://prodimage.images-bn.com/lf?set=key%5Bresolve.pixelRatio%5D,value%5B1%5D&set=key%5Bresolve.width%5D,value%5B300%5D&set=key%5Bresolve.height%5D,value%5B10000%5D&set=key%5Bresolve.imageFit%5D,value%5Bcontainerwidth%5D&set=key%5Bresolve.allowImageUpscaling%5D,value%5B0%5D&set=key%5Bresolve.format%5D,value%5Bwebp%5D&source=url%5Bhttps://prodimage.images-bn.com/pimages/9780425266540_p0_v6_s600x595.jpg%5D&scale=options%5Blimit%5D,size%5B300x10000%5D&sink=format%5Bwebp%5D"
-    );
-    setBookTitle("Default Title");
-    setBookAuthor("Default Author");
-    //TODO: modify this date parsing to be prettier
-    setMeetingDate(new Date().toString());
-    setMeetingHost("Default Host");
-    setMeetingAddress("1234 Default Address, TestCity 12345");
+    // Try to get userInfo if there's already an access token
+    if (localStorage.getItem("accessToken")) {
+      setPageLoading(true)
+      userAPI.getAppUserInfo().then((data) => {
+        setAppUser(data)
+        setPageLoading(false)
+      });
+    }
   }, []);
 
   const location = useLocation();
@@ -56,15 +67,17 @@ export default function App() {
 
   return (
     <AppContext.Provider value={appContextValue}>
-      <AxiosConfig></AxiosConfig>
-      <Layout>
-        <Routes>
-          {AppRoutes.map((route, index) => {
-            const { element, ...rest } = route;
-            return <Route key={index} {...rest} element={element} />;
-          })}
-        </Routes>
-      </Layout>
+      <AppUserContext.Provider value={appUserContextValue}>
+        <AxiosConfig></AxiosConfig>
+        <Layout>
+          <Routes>
+            {AppRoutes.map((route, index) => {
+              const { element, ...rest } = route;
+              return <Route key={index} {...rest} element={element} />;
+            })}
+          </Routes>
+        </Layout>
+      </AppUserContext.Provider>
     </AppContext.Provider>
   );
 }

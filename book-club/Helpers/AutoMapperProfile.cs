@@ -8,7 +8,7 @@ namespace book_club.Helpers
     {
         public AutoMapperProfile() {
             CreateMap<CreateUserDTO, User>();
+            CreateMap<BookClub, BookClubDTO>();
         }
-       
     }
 }

@@ -8,10 +8,6 @@ export class Layout extends Component {
 
 
     render() {
-
-        //todo:subscribe to the ClubsContext once functionality is in place (user logs in -> updates subscribed book clubs)
-        const testClubArr = [{ name: "testClubOne" }, { name: "testClubTwo" }]
-
         const wrapper = {
             display: "flex"
         }
@@ -20,7 +16,7 @@ export class Layout extends Component {
             <div>
                 <NavMenu />
                 <div style={wrapper}>
-                    <ClubSidebar clubsArray={testClubArr} style={{ flex: "1 1 auto" }} />
+                    <ClubSidebar  style={{ flex: "1 1 auto" }} />
                     <Container style={{ flex: "1 8 auto" }}>
                         {this.props.children}
                     </Container>
