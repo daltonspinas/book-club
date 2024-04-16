@@ -1,19 +1,29 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from "react";
+import { AppUserContext } from "../context/UserContext";
 
-export function ClubSidebar({ clubsArray = [] }) {
-    return (
-        <div id="clubSidebar" className="bg-green-700 h-screen w-sidebarWidth">
-            <ul>{
-                clubsArray.map(function (club, i) {
-                    return (
-                        //todo: replace the below log with a context hook once multiple book club functionality is in place
-                        <li key={i} onClick={
-                            function handleClick() { console.log(`${club.name}`) }
-                        }>{club.name}</li>
-                    )
-                })
-            }
-            </ul>
-        </div>
-    )
+export function ClubSidebar() {
+
+  const { appUser, setAppUser } = useContext(AppUserContext);
+
+  useEffect(() => {
+  }, [])
+
+  return (
+    <div id="clubSidebar" className="bg-green-700 h-screen w-sidebarWidth">
+      <ul>
+        {appUser?.bookClubs?.map(function (club, i) {
+          return (
+            <li
+              key={i}
+              onClick={function handleClick() {
+                console.log(`${club.clubName}`);
+              }}
+            >
+              {club.clubName}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
 }

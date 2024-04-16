@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { userAPI } from "../API/Controllers/User";
+import { useNavigate } from "react-router-dom";
+import { AppUserContext } from "../context/UserContext";
 
 export function LoginSignup() {
   //state hooks for login path
@@ -8,7 +10,13 @@ export function LoginSignup() {
     localStorage.getItem("accessToken") ? true : false
   );
 
-  useEffect(() => {}, []);
+  const { appUser, setAppUser } = useContext(AppUserContext);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedIn) navigate("/");
+  }, [isLoggedIn]);
 
   const handleLoginChange = (event) => {
     const { name, value } = event.target;
@@ -23,9 +31,11 @@ export function LoginSignup() {
     };
 
     userAPI.login(loginDTO).then((data) => {
-      console.log("setting token", data);
       localStorage.setItem("accessToken", data);
-      setIsLoggedIn(true)
+      userAPI.getAppUserInfo().then((userInfo) => {
+        setAppUser(userInfo);
+        setIsLoggedIn(true);
+      });
     });
   };
 
