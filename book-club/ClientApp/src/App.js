@@ -7,6 +7,7 @@ import { AppContext } from "./context/GlobalContext";
 import AxiosConfig from "./API/axiosConfig";
 import { AppUserContext } from "./context/UserContext";
 import { userAPI } from "./API/Controllers/User";
+import { booksAPI } from "./API/Controllers/Books";
 
 export default function App() {
   const [pageTitle, setPageTitle] = useState();
@@ -64,6 +65,19 @@ export default function App() {
       : setPageTitle("Placeholder Title");
     //these methods populate placeholder data for now, will replace with a call to the books API
   }, [location]);
+
+  //hit books api to update global context
+  //ToDo: replace placeholder with book id from DB
+  useEffect(() => {
+    const placeholderBook = "OXzLsgEACAAJ?key=AIzaSyB8Qt63pYxZHRNxlDJQQUYQLS4Zuqcw5ZU"
+    setPageLoading(true)
+    booksAPI.getBook(placeholderBook).then((data) => {
+      //authors come back in an array, assume first is main
+      setBookAuthor(data.volumeInfo.authors[0])
+      setBookTitle(data.volumeInfo.title)
+      setPageLoading(false)
+    })
+  })
 
   return (
     <AppContext.Provider value={appContextValue}>
