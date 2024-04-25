@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 
 export const api = axios.create({
-  baseURL: "https://www.googleapis.com/books",
+    baseURL: "https://www.googleapis.com/books/v1",
 });
 
 // defining a custom error handler for all APIs
@@ -21,9 +21,6 @@ export default function AxiosConfig() {
     });
 
     api.interceptors.request.use((config) => {
-		// attach the jwt to outbound api calls
-      //const accessToken = localStorage.getItem('accessToken')
-      //config.headers.Authorization = "Bearer " + accessToken;
       return config;
     });
   }, []);

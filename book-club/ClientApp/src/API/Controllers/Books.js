@@ -6,7 +6,7 @@ export const booksAPI = {
 
     getBook: async function(bookID) {
         const response = await api.request({
-            url: `${controllerBase}/${bookID}`,
+            url: `/volumes/${bookID}`,
             method: 'GET',
         })
         return response.data

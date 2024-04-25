@@ -77,7 +77,7 @@ export default function App() {
       setBookTitle(data.volumeInfo.title)
       setPageLoading(false)
     })
-  })
+  }, [])
 
   return (
     <AppContext.Provider value={appContextValue}>
