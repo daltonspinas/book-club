@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import {
+  Route,
+  Router,
+  Routes,
+  useLocation,
+  BrowserRouter,
+} from "react-router-dom";
 import AppRoutes from "./AppRoutes";
-import { Layout } from "./components/Layout";
+import Layout from "./components/Layout";
 import "./custom.css";
 import { AppContext } from "./context/GlobalContext";
 import AxiosConfig from "./API/axiosConfig";
@@ -10,7 +16,7 @@ import { userAPI } from "./API/Controllers/User";
 import { booksAPI } from "./API/Controllers/Books";
 
 export default function App() {
-  const [pageTitle, setPageTitle] = useState();
+  const [pageTitle, setPageTitle] = useState<string>();
   const [bookImage, setBookImage] = useState(
     "https://prodimage.images-bn.com/lf?set=key%5Bresolve.pixelRatio%5D,value%5B1%5D&set=key%5Bresolve.width%5D,value%5B300%5D&set=key%5Bresolve.height%5D,value%5B10000%5D&set=key%5Bresolve.imageFit%5D,value%5Bcontainerwidth%5D&set=key%5Bresolve.allowImageUpscaling%5D,value%5B0%5D&set=key%5Bresolve.format%5D,value%5Bwebp%5D&source=url%5Bhttps://prodimage.images-bn.com/pimages/9780425266540_p0_v6_s600x595.jpg%5D&scale=options%5Blimit%5D,size%5B300x10000%5D&sink=format%5Bwebp%5D"
   );
@@ -22,7 +28,7 @@ export default function App() {
     "1234 Default Address, TestCity 12345"
   );
 
-  const [pageLoading, setPageLoading] = useState(false)
+  const [pageLoading, setPageLoading] = useState(false);
 
   const [appUser, setAppUser] = useState();
 
@@ -48,10 +54,10 @@ export default function App() {
   useEffect(() => {
     // Try to get userInfo if there's already an access token
     if (localStorage.getItem("accessToken")) {
-      setPageLoading(true)
+      setPageLoading(true);
       userAPI.getAppUserInfo().then((data) => {
-        setAppUser(data)
-        setPageLoading(false)
+        setAppUser(data);
+        setPageLoading(false);
       });
     }
   }, []);
@@ -86,8 +92,9 @@ export default function App() {
         <Layout>
           <Routes>
             {AppRoutes.map((route, index) => {
+              console.log("getting route: ", route, index);
               const { element, ...rest } = route;
-              return <Route key={index} {...rest} element={element} />;
+              return <Route key={index} {...rest} element={route.element} />;
             })}
           </Routes>
         </Layout>

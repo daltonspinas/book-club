@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { ReactNode, useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/GlobalContext";
 import { AppUserContext } from "../context/UserContext";
 
-export function Home() {
+export function Home(){
   const {
     bookImage,
     bookTitle,

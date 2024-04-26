@@ -7,7 +7,7 @@ const AppRoutes = [
   {
     index: true,
     path: '/',
-    element: <Home />,
+    element: < Home />,
     title: 'Home'
   },
   {

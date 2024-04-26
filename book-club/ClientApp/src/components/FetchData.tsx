@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { userAPI } from '../API/Controllers/User';
 
-export class FetchData extends Component {
+export class FetchData extends Component<any, any> {
   static displayName = FetchData.name;
 
   constructor(props) {

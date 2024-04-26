@@ -6,7 +6,7 @@ export const api = axios.create({
 });
 
 // defining a custom error handler for all APIs
-const errorHandler = (error) => {
+const errorHandler = (error: any) => {
   const statusCode = error.response?.status;
   console.error(statusCode, error);
 
@@ -28,4 +28,6 @@ export default function AxiosConfig() {
       return config;
     });
   }, []);
+
+  return (<></>)
 }

@@ -1,7 +1,5 @@
 import {api} from '../googleAxiosConfig'
 
-const controllerBase = '/v1/volumes'
-
 export const booksAPI = {
 
     getBook: async function(bookID) {

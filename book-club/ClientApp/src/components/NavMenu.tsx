@@ -18,7 +18,7 @@ export function NavMenu(props) {
 
   const { pageTitle, setPageTitle } = useContext(AppContext);
   const { appUser, setAppUser } = useContext(AppUserContext);
-  const [collapsed, setCollapsed] = useState("");
+  const [collapsed, setCollapsed] = useState(false);
 
   async function handleLogout() {
     if(!appUser) return;
