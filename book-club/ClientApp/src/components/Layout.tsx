@@ -3,12 +3,10 @@ import { Container } from "reactstrap";
 import { NavMenu } from "./NavMenu";
 import { ClubSidebar } from "./ClubSidebar";
 
-export default function Layout(props) {
+export default function Layout(props: any) {
   const wrapper = {
     display: "flex",
   };
-
-console.log(props)
 
   return (
     <div >

@@ -1,3 +1,9 @@
+import { UserInfo } from '../interfaces/types';
 import React, { createContext } from 'react';
 
-export const AppUserContext = createContext<any>({});
+type AppUserContextType = {
+    appUser?: UserInfo,
+    setAppUser?: any
+}
+
+export const AppUserContext = createContext<AppUserContextType>({});

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export class Counter extends Component<any, {currentCount: number}> {
   static displayName = Counter.name;
 
-  constructor(props) {
+  constructor(props: any) {
     super(props);
     this.state = { currentCount: 0 };
     this.incrementCounter = this.incrementCounter.bind(this);

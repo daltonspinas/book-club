@@ -2,13 +2,23 @@ import React, { useContext, useEffect, useState } from "react";
 import { userAPI } from "../API/Controllers/User";
 import { useNavigate } from "react-router-dom";
 import { AppUserContext } from "../context/UserContext";
+import { LoginDTO, SignUpDTO } from "../interfaces/DTOs";
 
 export function LoginSignup() {
   //state hooks for login path
-  const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const [loginData, setLoginData] = useState<LoginDTO>({ email: "", password: "" });
+
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem("accessToken") ? true : false
   );
+  
+  //state hooks for create acct path
+  const [createData, setCreateData] = useState({
+    username: "",
+    email: "",
+    password1: "",
+    password2: "",
+  });
 
   const { appUser, setAppUser } = useContext(AppUserContext);
 
@@ -18,19 +28,15 @@ export function LoginSignup() {
     if (isLoggedIn) navigate("/");
   }, [isLoggedIn]);
 
-  const handleLoginChange = (event) => {
-    const { name, value } = event.target;
+  const handleLoginChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const { name, value } = event.currentTarget;
     setLoginData((previousData) => ({ ...previousData, [name]: value }));
   };
 
-  const handleLoginSubmit = async (event) => {
+  const handleLoginSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    const loginDTO = {
-      Email: loginData.email,
-      Password: loginData.password,
-    };
 
-    userAPI.login(loginDTO).then((data) => {
+    userAPI.login(loginData).then((data) => {
       localStorage.setItem("accessToken", data);
       userAPI.getAppUserInfo().then((userInfo) => {
         setAppUser(userInfo);
@@ -39,37 +45,30 @@ export function LoginSignup() {
     });
   };
 
-  //state hooks for create acct path
-  const [createData, setCreateData] = useState({
-    userName: "",
-    email: "",
-    password1: "",
-    password2: "",
-  });
 
-  const handleCreateChange = (event) => {
-    const { name, value } = event.target;
+  const handleCreateChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const { name, value } = event.currentTarget;
     setCreateData((previousData) => ({ ...previousData, [name]: value }));
   };
 
-  const handleCreateSubmit = async (event) => {
+  const handleCreateSubmit = async (event: React.FormEvent<any>) => {
     event.preventDefault();
     // check for matching passwords
-    if (event.target.password1.value !== event.target.password2.value) {
+    if (event.currentTarget.password1.value !== event.currentTarget.password2.value) {
       alert("Passwords do not match, please try again");
     }
 
     // TODO: Upgrade to Typescript
-    const userDTO = {
-      UserName: createData.userName,
-      Email: createData.email,
-      Password: createData.password1,
+    const userDTO: SignUpDTO = {
+      username: createData.username,
+      email: createData.email,
+      password: createData.password1,
     };
 
     userAPI.signUp(userDTO).then((data) => console.log(data));
   };
 
-  const handleLogout = async (event) => {
+  const handleLogout = async () => {
     userAPI.logout().then((data) => {
       localStorage.removeItem("accessToken");
       setIsLoggedIn(false);
@@ -111,7 +110,7 @@ export function LoginSignup() {
               <input
                 type="text"
                 name="userName"
-                value={createData.userName}
+                value={createData.username}
                 onChange={handleCreateChange}
               />
             </label>

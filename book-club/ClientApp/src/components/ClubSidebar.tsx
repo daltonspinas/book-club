@@ -3,7 +3,7 @@ import { AppUserContext } from "../context/UserContext";
 
 export function ClubSidebar() {
 
-  const { appUser, setAppUser } = useContext(AppUserContext);
+  const { appUser } = useContext(AppUserContext);
 
   useEffect(() => {
   }, [])

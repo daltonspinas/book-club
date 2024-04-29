@@ -4,7 +4,7 @@ import { userAPI } from '../API/Controllers/User';
 export class FetchData extends Component<any, any> {
   static displayName = FetchData.name;
 
-  constructor(props) {
+  constructor(props: {users: [], loading: boolean}) {
     super(props);
     this.state = { users: [], loading: true };
   }
@@ -13,7 +13,7 @@ export class FetchData extends Component<any, any> {
     this.populateUserData();
   }
 
-    static renderUsersTable(users) {
+    static renderUsersTable(users: {id: string, email: string, userName: string, password: string}[]) {
     return (
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
