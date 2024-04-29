@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { ReactNode, useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/GlobalContext";
 import { AppUserContext } from "../context/UserContext";
 
-export function Home() {
+export function Home(){
   const {
     bookImage,
     bookTitle,
@@ -22,7 +22,7 @@ export function Home() {
       <h1 className="justify-self-center text-4xl">{bookTitle}</h1>
       <h2 className="justify-self-center text-3xl">{bookAuthor}</h2>
       <h3 className="justify-self-center text-xl">
-        Next Meeting: {meetingDate}
+        Next Meeting: {meetingDate.toString()}
       </h3>
       <h3 className="justify-self-center text-xl">Host: {meetingHost}</h3>
       <h3 className="justify-self-center text-xl pb-20">

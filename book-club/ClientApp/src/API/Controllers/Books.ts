@@ -1,10 +1,8 @@
 import {api} from '../googleAxiosConfig'
 
-const controllerBase = '/v1/volumes'
-
 export const booksAPI = {
 
-    getBook: async function(bookID) {
+    getBook: async function(bookID: string) {
         const response = await api.request({
             url: `/volumes/${bookID}`,
             method: 'GET',

@@ -13,12 +13,12 @@ import { AppContext } from "../context/GlobalContext";
 import { AppUserContext } from "../context/UserContext";
 import { userAPI } from "../API/Controllers/User";
 
-export function NavMenu(props) {
+export function NavMenu() {
   const navigate = useNavigate();
 
   const { pageTitle, setPageTitle } = useContext(AppContext);
   const { appUser, setAppUser } = useContext(AppUserContext);
-  const [collapsed, setCollapsed] = useState("");
+  const [collapsed, setCollapsed] = useState(false);
 
   async function handleLogout() {
     if(!appUser) return;
